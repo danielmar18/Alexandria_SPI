@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const server = express();
 const data = require('./data/db').DB;
+server.use(bodyParser.json());
 
 const ProvisionRoutes = require('./routes/provisionRoutes');
 const DataRoutes = require('./routes/dataRoutes');
@@ -16,7 +17,7 @@ server.use('/data', DataRoutes);
 
 server.use('/schemas', SchemaRoutes);
 
-server.get('');
+server.get('', () => {return res.json([{'Sup': 'Hi'}])});
 
 
 server.listen(port, () => {
