@@ -13,7 +13,7 @@ server.post('/find', async (req, res) => {
     collection.forEach(base => {
         var object = {
             "name": base.name,
-            "_id": base.info.uuid
+            "id": base.info.uuid
         }
         collections.push(object);
     })
