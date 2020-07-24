@@ -16,6 +16,8 @@ server.use('/data', DataRoutes);
 
 server.use('/schemas', SchemaRoutes);
 
+server.get('');
+
 
 server.listen(port, () => {
     console.log('Server is listening to port '+port);
