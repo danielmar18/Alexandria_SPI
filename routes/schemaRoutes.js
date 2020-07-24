@@ -17,8 +17,7 @@ server.post('/find', async (req, res) => {
         }
         collections.push(object);
     })
-    console.log(collections);
-    return res.json([{'Endpoint':'schema/find'}]);
+    return res.json(collections);
 })
 
 server.post('/list', (req, res) => {
