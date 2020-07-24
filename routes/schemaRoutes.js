@@ -21,7 +21,16 @@ server.post('/find', async (req, res) => {
 })
 
 server.post('/list', (req, res) => {
-    return res.json([{'Endpoint': 'schema/list'}]);
+    var collection = await DB.db.listCollections().toArray();
+    var collections = [];
+    collection.forEach(base => {
+        var object = {
+            "name": base.name,
+            "id": base.info.uuid
+        }
+        collections.push(object);
+    })
+    return res.json(collections);
 })
 
 
