@@ -7,7 +7,17 @@ const DB = require('../data/db').DB;
 
 server.use(bodyParser.json());
 
-server.post('/find', (req, res) => {
+server.post('/find', async (req, res) => {
+    var collection = await DB.db.listCollections().toArray();
+    var collections = [];
+    collection.forEach(base => {
+        var object = {
+            "name": base.name,
+            "_id": base.info.uuid
+        }
+        collections.push(object);
+    })
+    console.log(collections);
     return res.json([{'Endpoint':'schema/find'}]);
 })
 
