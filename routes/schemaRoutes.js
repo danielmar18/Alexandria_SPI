@@ -23,7 +23,7 @@ server.post('/find', async (req, res) => {
     return res.json(collections);
 })
 
-server.post('/list', (req, res) => {
+server.post('/list', async (req, res) => {
     var collection = await DB.db.listCollections().toArray();
     var collections = [];
     collection.forEach(base => {
