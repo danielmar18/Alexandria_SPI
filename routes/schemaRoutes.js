@@ -16,7 +16,10 @@ server.post('/find', async (req, res) => {
             "id": base.info.uuid
         }
         collections.push(object);
-    })
+    });
+    console.log('\n');
+    console.log('--------------Tried to get Schemas(/schemas/find)---------------');
+    console.log('\n');
     return res.json(collections);
 })
 
@@ -29,7 +32,10 @@ server.post('/list', (req, res) => {
             "id": base.info.uuid
         }
         collections.push(object);
-    })
+    });
+    console.log('\n');
+    console.log('--------------Tried to get Schemas(/schemas/list)---------------');
+    console.log('\n');
     return res.json(collections);
 })
 

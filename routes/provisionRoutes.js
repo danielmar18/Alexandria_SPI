@@ -9,7 +9,10 @@ server.use(bodyParser.json());
 
 server.post('', (req, res) => {
     if(db.readyState === 1){
-        return res.json([{'Hi':'My Name is'}]);
+        console.log('\n');
+        console.log('--------------Provision complete!!---------------');
+        console.log('\n');
+        return res.json([{}]);
     }
 });
 
