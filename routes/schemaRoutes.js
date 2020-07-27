@@ -8,13 +8,77 @@ const DB = require('../data/db').DB;
 server.use(bodyParser.json());
 
 server.post('/find', async (req, res) => {
-    var collection = await DB.db.listCollections().toArray();
-    var collections = [];
-    collection.forEach(base => {
-
+    var schemaArray = [];
+    var counter = 0;
+    var collections = await DB.db.listCollections().toArray();
+    const numberOfCollections = collections.length;
+    collections.forEach(coll => {
+        var a = [];
+        DB.db.collection(coll.name.toString()).findOne({}, function(err, result){
+            if(err){console.log('We fucked up');}
+            else{
+                fieldArr = {};
+                var obj = JSON.stringify(result);
+                lines = obj.split(',');
+                lines.forEach( line => {
+                    var tmp = '';
+                    if(line[0] == '{'){
+                        tmp = line+'}';
+                    } else if(line[line.length-1] == '}'){
+                        tmp = '{'+line;
+                    } else{
+                        tmp = '{' + line + '}';
+                    }
+    
+                    tmpField = line.split(':')[0];
+                    tmpFieldType = typeFinder(line.split(/:(.+)/)[1]);
+                    tmpField2 = tmpField.split('"')[1];
+                    //var foo = {};
+                    //var name = tmpField2.toString();
+                    fieldObj = {    
+                        "displayName": tmpField2,
+                        "type": tmpFieldType,
+                        "queryOperators": [
+                            "eq",
+                            "lt",
+                            "gt",
+                            "hasSome",
+                            "and",
+                            "lte",
+                            "gte",
+                            "or",
+                            "not",
+                            "ne",
+                            "startsWith",
+                            "endsWith"
+                        ]
+                    };
+                    //foo[tmpField2.toString()] = fieldObj;
+                    fieldArr[tmpField2.toString()] = fieldObj;
+                });
+                schema = {
+                    "displayName": coll.name,
+                    "id": coll.name,
+                    "maxPageSize": 50,
+                    "allowedOperations": [
+                        "get",
+                        "find",
+                        "count"
+                    ],
+                    "ttl": 3600,
+                    "fields": fieldArr 
+                }
+                schemaArray.push(schema);
+            }
+            retObj = {
+                "schemas": schemaArray
+            }
+            counter++;
+            if(counter == numberOfCollections){
+                return res.json(retObj);
+            }
+        });
     });
-
-    return res.json(collections);
 })
 
 server.post('/list', async (req, res) => {
