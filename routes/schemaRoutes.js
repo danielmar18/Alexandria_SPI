@@ -85,7 +85,7 @@ server.post('/list', async (req, res) => {
             }
             counter++;
             if(counter == numberOfCollections){
-                console.log(retObj);
+                return res.json(retObj);
             }
         });
     });
