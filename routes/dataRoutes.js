@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const server = express();
 const mongoose = require('mongoose');
 
-const db = require('../data/db').DB;
+const DB = require('../data/db').DB;
 
 server.use(bodyParser.json());
 //GET
@@ -15,7 +15,13 @@ server.post('/get', (req, res) => {
 //FIND
 server.post('/find', (req, res) => {
     console.log('The request body in data/find:' + req.body);
-    return res.json([{'Endpoint': 'data/find'}]);
+    DB.db.collection(req.body.collectionName.toString).find({}, function(err, results){
+        if(err){
+            console.log('fuck');
+        } else{
+            return res.json(results);
+        }
+    });
 });
 
 //COUNT

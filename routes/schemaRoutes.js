@@ -139,7 +139,8 @@ server.post('/list', async (req, res) => {
                         "count"
                     ],
                     "ttl": 3600,
-                    "fields": fieldArr 
+                    "fields": fieldArr,
+                    
                 }
                 schemaArray.push(schema);
             }
