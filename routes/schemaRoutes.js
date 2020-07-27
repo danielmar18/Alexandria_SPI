@@ -18,7 +18,7 @@ server.post('/find', async (req, res) => {
         collections.push(object);
     });
     console.log('\n');
-    console.log('--------------Tried to get Schemas(/schemas/find)---------------');
+    console.log(req.body);
     console.log('\n');
     return res.json(collections);
 })
@@ -34,7 +34,7 @@ server.post('/list', async (req, res) => {
         collections.push(object);
     });
     console.log('\n');
-    console.log('--------------Tried to get Schemas(/schemas/list)---------------');
+   console.log(req.body);
     console.log('\n');
     return res.json(collections);
 })
