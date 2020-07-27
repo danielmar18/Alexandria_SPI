@@ -8,12 +8,12 @@ const DB = require('../data/db').DB;
 server.use(bodyParser.json());
 
 server.post('/find', async (req, res) => {
+    console.log('The request body in schema/find:' + req.body);
     var schemaArray = [];
     var counter = 0;
     var collections = await DB.db.listCollections().toArray();
     const numberOfCollections = collections.length;
     collections.forEach(coll => {
-        var a = [];
         DB.db.collection(coll.name.toString()).findOne({}, function(err, result){
             if(err){console.log('We fucked up');}
             else{
@@ -33,8 +33,6 @@ server.post('/find', async (req, res) => {
                     tmpField = line.split(':')[0];
                     tmpFieldType = typeFinder(line.split(/:(.+)/)[1]);
                     tmpField2 = tmpField.split('"')[1];
-                    //var foo = {};
-                    //var name = tmpField2.toString();
                     fieldObj = {    
                         "displayName": tmpField2,
                         "type": tmpFieldType,
@@ -82,6 +80,7 @@ server.post('/find', async (req, res) => {
 })
 
 server.post('/list', async (req, res) => {
+    console.log('The request body in schema/list:' + req.body);
     var schemaArray = [];
     var counter = 0;
     var collections = await DB.db.listCollections().toArray();
