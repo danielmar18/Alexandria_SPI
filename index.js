@@ -17,7 +17,9 @@ server.use('/data', DataRoutes);
 
 server.use('/schemas', SchemaRoutes);
 
-server.get('', () => {return res.json([{'Sup': 'Hi'}])});
+server.get('', (req, res) => {
+    return res.json([{"Test": "Completeed"}]);
+});
 
 
 server.listen(port, () => {
