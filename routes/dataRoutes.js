@@ -36,7 +36,7 @@ server.post('/count', (req, res) => {
     console.log('\n');
     console.log("The request body in data/count: "+JSON.stringify(req.body));
     console.log('\n');
-    return res.json([{'totalCount': 4}]);
+    return res.json({'totalCount': 1});
 });
 
 
