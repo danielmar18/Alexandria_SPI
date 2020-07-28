@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const estateSchema = require('../schemas/estates');
 
 const connection = mongoose.createConnection('mongodb+srv://danielmar18:Skja9sia@alexandriadb-pqmll.mongodb.net/testdb?retryWrites=true&w=majority', {
     useNewUrlParser: true,
@@ -18,5 +19,6 @@ const connection = mongoose.createConnection('mongodb+srv://danielmar18:Skja9sia
 
 
 module.exports = {
-    DB: connection
+    DB: connection,
+    Estate: connection.model('Estates', estateSchema)
 }

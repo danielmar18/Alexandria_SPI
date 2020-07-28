@@ -2,26 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const server = express();
 const mongoose = require('mongoose');
+const EstateService = require('../services/estateService');
 
 const DB = require('../data/db').DB;
 
 server.use(bodyParser.json());
 //GET
 server.post('/get', (req, res) => {
-    console.log('The request body in data/get:' + req.body);
-    return res.json([{'Endpoint': 'data/get'}]);
+    EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
+        return res.json(estates);
+    }, function(err){
+        return res.status(err.status).send(err.message);
+    });
 });
 
 //FIND
 server.post('/find', (req, res) => {
-    console.log('The request body in data/find:' + req.body);
-    DB.db.collection(req.body.collectionName.toString).find({}, function(err, results){
-        if(err){
-            console.log('fuck');
-        } else{
-            return res.json(results);
-        }
-    });
+    console.log('The request body in data/find:' + req.body.collectionName);
+
 });
 
 //COUNT
