@@ -9,6 +9,9 @@ const DB = require('../data/db').DB;
 server.use(bodyParser.json());
 //GET
 server.post('/get', (req, res) => {
+    console.log('\n');
+    console.log("The request body in data/get: "+JSON.stringify(req.body));
+    console.log('\n');
     EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
         return res.json(estates);
     }, function(err){
@@ -18,6 +21,9 @@ server.post('/get', (req, res) => {
 
 //FIND
 server.post('/find', (req, res) => {
+    console.log('\n');
+    console.log("The request body in data/find: "+JSON.stringify(req.body));
+    console.log('\n');
     EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
         return res.json(estates);
     }, function(err){
@@ -27,8 +33,10 @@ server.post('/find', (req, res) => {
 
 //COUNT
 server.post('/count', (req, res) => {
-    console.log('The request body in data/count:' + req.body);
-    return res.json([{'Endpoint': 'data/count'}]);
+    console.log('\n');
+    console.log("The request body in data/count: "+JSON.stringify(req.body));
+    console.log('\n');
+    return res.json([{'totalCount': 4}]);
 });
 
 

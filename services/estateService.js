@@ -12,6 +12,9 @@ const estateService = () => {
             if(err){
                 errorCallback({status: 500, message: err});
             } else{
+                retObj = {
+                    items: result
+                }
                 callback(result);
             }
         })
