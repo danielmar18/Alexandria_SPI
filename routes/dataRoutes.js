@@ -18,8 +18,11 @@ server.post('/get', (req, res) => {
 
 //FIND
 server.post('/find', (req, res) => {
-    console.log('The request body in data/find:' + req.body.collectionName);
-
+    EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
+        return res.json(estates);
+    }, function(err){
+        return res.status(err.status).send(err.message);
+    });
 });
 
 //COUNT
