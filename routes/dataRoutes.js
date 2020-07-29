@@ -36,7 +36,11 @@ server.post('/count', (req, res) => {
     console.log('\n');
     console.log("The request body in data/count: "+JSON.stringify(req.body));
     console.log('\n');
-    return res.json({'totalCount': 1});
+    EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
+        return res.json({"totalCount": estates.totalCount});
+    }, function(err){
+        return res.status(err.status).send(err.message);
+    });
 });
 
 
