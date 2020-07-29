@@ -43,10 +43,12 @@ const estateService = () => {
                     // console.log(obj);
                     retArr.push(returnJson);
                 })
-                //console.log(retArr);
+                //console.log(retArr.length);
                 retObj = {
-                    items: retArr
+                    items: retArr,
+                    totalCount: retArr.length
                 }
+                //console.log(JSON.stringify(retObj));
                 callback(retObj);
             }
         })
