@@ -173,35 +173,35 @@ const typeFinder = line => {
     }
 }
 
-const fieldFinder = collectionName => {
-    DB.db.collection(collectionName).findOne({}, function(err, result){
-        if(err){console.log('We fucked up');}
-        else{
-            retArr = [];
-            var obj = JSON.stringify(result);
-            lines = obj.split(',');
-            lines.forEach( line => {
-                var tmp = '';
-                if(line[0] == '{'){
-                    tmp = line+'}';
-                } else if(line[line.length-1] == '}'){
-                    tmp = '{'+line;
-                } else{
-                    tmp = '{' + line + '}';
-                }
+// const fieldFinder = collectionName => {
+//     DB.db.collection(collectionName).findOne({}, function(err, result){
+//         if(err){console.log('We fucked up');}
+//         else{
+//             retArr = [];
+//             var obj = JSON.stringify(result);
+//             lines = obj.split(',');
+//             lines.forEach( line => {
+//                 var tmp = '';
+//                 if(line[0] == '{'){
+//                     tmp = line+'}';
+//                 } else if(line[line.length-1] == '}'){
+//                     tmp = '{'+line;
+//                 } else{
+//                     tmp = '{' + line + '}';
+//                 }
 
-                tmpField = line.split(':')[0];
-                tmpFieldType = typeFinder(line.split(/:(.+)/)[1]);
-                tmpField2 = tmpField.split('"')[1];
-                fieldObj = {
-                    "field": tmpField2,
-                    "fieldType": tmpFieldType
-                };
-                retArr.push(fieldObj);
-            });
-            return res.json(retArr);
-        }
-    });
-}
+//                 tmpField = line.split(':')[0];
+//                 tmpFieldType = typeFinder(line.split(/:(.+)/)[1]);
+//                 tmpField2 = tmpField.split('"')[1];
+//                 fieldObj = {
+//                     "field": tmpField2,
+//                     "fieldType": tmpFieldType
+//                 };
+//                 retArr.push(fieldObj);
+//             });
+//             return res.json(retArr);
+//         }
+//     });
+// }
 
 module.exports = server;
