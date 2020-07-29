@@ -13,7 +13,7 @@ server.post('/get', (req, res) => {
     console.log("The request body in data/get: "+JSON.stringify(req.body));
     console.log('\n');
     EstateService.findEstateById(req.body.collectionName.toString(), req.body.itemId, function(estates){
-        return res.json(estates);
+        return res.status(estates.status).json(estates.package);
     }, function(err){
         return res.status(err.status).send(err.message);
     });

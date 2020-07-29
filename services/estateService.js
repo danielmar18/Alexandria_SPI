@@ -38,8 +38,7 @@ const estateService = () => {
                         i++
                     })
                     retArr.push(returnJson);
-                })
-                console.log(body.sort);
+                });
                 var jsonItems = (body.sort == null || body.sort == 0) ? retArr : retArr.sort(function(a, b){
                     if(body.sort[0].direction == 'asc'){
                         if(a[body.sort[0].fieldName] < b[body.sort[0].fieldName]){
@@ -108,7 +107,7 @@ const estateService = () => {
                     retObj = {
                         "item": returnJson
                     }
-                    callback(retObj);
+                    callback({status: 200, package: retObj});
                 }
             }
         })
