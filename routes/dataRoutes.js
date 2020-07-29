@@ -12,7 +12,7 @@ server.post('/get', (req, res) => {
     console.log('\n');
     console.log("The request body in data/get: "+JSON.stringify(req.body));
     console.log('\n');
-    EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
+    EstateService.findEstateById(req.body.collectionName.toString(), req.body.itemId, function(estates){
         return res.json(estates);
     }, function(err){
         return res.status(err.status).send(err.message);
@@ -24,7 +24,7 @@ server.post('/find', (req, res) => {
     console.log('\n');
     console.log("The request body in data/find: "+JSON.stringify(req.body));
     console.log('\n');
-    EstateService.findAllEstates(req.body.collectionName.toString(), function(estates){
+    EstateService.findAllEstates(req.body.collectionName.toString(), req.body, function(estates){
         return res.json(estates);
     }, function(err){
         return res.status(err.status).send(err.message);
