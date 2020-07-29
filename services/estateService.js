@@ -40,7 +40,7 @@ const estateService = () => {
                     retArr.push(returnJson);
                 })
                 console.log(body.sort);
-                var jsonItems = (body.sort == null) ? retArr : retArr.sort(function(a, b){
+                var jsonItems = (body.sort == null || body.sort == []) ? retArr : retArr.sort(function(a, b){
                     if(body.sort[0].direction == 'asc'){
                         if(a[body.sort[0].fieldName] < b[body.sort[0].fieldName]){
                             return -1;
