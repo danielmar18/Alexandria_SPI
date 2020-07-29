@@ -25,7 +25,7 @@ server.post('/find', (req, res) => {
     console.log("The request body in data/find: "+JSON.stringify(req.body));
     console.log('\n');
     EstateService.findAllEstates(req.body.collectionName.toString(), req.body, function(estates){
-        return res.json(estates);
+        return res.status(estates.status).json(estates.package);
     }, function(err){
         return res.status(err.status).send(err.message);
     });

@@ -64,7 +64,7 @@ const estateService = () => {
                     totalCount: retArr.length
                 }
                 console.log(retObj);
-                callback(retObj);
+                callback({status: 200, package: retObj});
             }
         })
     }
