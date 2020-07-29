@@ -63,6 +63,7 @@ const estateService = () => {
                     items: jsonItems,
                     totalCount: retArr.length
                 }
+                console.log(retObj);
                 callback(retObj);
             }
         })
