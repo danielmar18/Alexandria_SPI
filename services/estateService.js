@@ -8,7 +8,8 @@ const estateService = () => {
         const collectionNameSchema = require(collectionNameSchemaString.toString());
         var collectionNameString = collectionName[0].toUpperCase()+collectionName.substr(1);
         var base = DB.model(collectionNameString, collectionNameSchema); 
-        if(body.filter == null || body.filter == 0 || body.filter.value[0] == 0){
+        console.log(filterChecker(body.filter));
+        if(filterChecker(body.filter)){
             base.find({}, function(err, result){
                 if(err){
                     errorCallback({status: 500, message: err});
@@ -81,6 +82,10 @@ const estateService = () => {
         findAllEstates,
         findEstateById
     }
+}
+
+const filterChecker = bodyFilter => {
+    return (bodyFilter == null || bodyFilter == 0 || bodyFilter.value == 0) ? true : (bodyFilter.value[0].value == 0) ? true : false;
 }
 
 const sorter = (sortOrder, dataArray) => {
