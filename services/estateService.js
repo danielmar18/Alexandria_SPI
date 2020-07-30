@@ -42,7 +42,15 @@ const estateService = () => {
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(result);
+                    var retArr = [];
+                    result.forEach( obj => {
+                        retArr.push(estatePopulator(obj));
+                    });
+                    retObj = {
+                        items: sorter(body.sort, retArr),
+                        totalCount: retArr.length
+                    }
+                    callback({status: 200, package: retObj});
                 }
             });
         }
