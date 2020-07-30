@@ -85,7 +85,22 @@ const estateService = () => {
 }
 
 const filterChecker = bodyFilter => {
-    return (bodyFilter == null || bodyFilter == 0) ? true : (bodyFilter.value == 0) ? true : (bodyFilter.value[0].value == 0) ? true : false;
+    console.log(typeof JSON.stringify(bodyFilter));
+    console.log(typeof bodyFilter);
+    if(bodyFilter != null){
+        if(bodyFilter != 0){
+            if(bodyFilter.value != 0){
+                if(bodyFilter.value != undefined){
+                    if(bodyFilter.value[0] != 0){
+                        console.log('yo');
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+    //return (bodyFilter == null || bodyFilter == {})? true : (bodyFilter == 0) ? console.log('One down') : (bodyFilter.value == 0) ? true : (bodyFilter.value[0].value == 0) ? true : false;
 }
 
 const sorter = (sortOrder, dataArray) => {
