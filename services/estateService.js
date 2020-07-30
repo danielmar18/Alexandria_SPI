@@ -25,7 +25,26 @@ const estateService = () => {
                 }
             });
         } else{
-
+            var query = {};
+            if(body.filter.value.length == 1){
+                const bodyObj = body.filter.value[0];
+                var obj = {};
+                if(bodyObj.operator != '$contains'){
+                    obj[bodyObj.operator] = bodyObj.value;
+                    query[bodyObj.fieldName] = obj;
+                } else{
+                    query[bodyObj.fieldName] = {"$regex": bodyObj.value, "$options": "i"};
+                }
+                console.log(query);
+            }
+            //console.log(query);
+            base.find(query, function(err, result){
+                if(err){
+                    console.log(err);
+                } else{
+                    console.log(result);
+                }
+            });
         }
     }
 
