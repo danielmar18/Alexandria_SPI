@@ -8,7 +8,7 @@ const estateService = () => {
         const collectionNameSchema = require(collectionNameSchemaString.toString());
         var collectionNameString = collectionName[0].toUpperCase()+collectionName.substr(1);
         var base = DB.model(collectionNameString, collectionNameSchema); 
-        if(body.filter == null || body.filter == 0){
+        if(body.filter == null || body.filter == 0 || body.filter.value[0].value == 0){
             base.find({}, function(err, result){
                 if(err){
                     errorCallback({status: 500, message: err});
