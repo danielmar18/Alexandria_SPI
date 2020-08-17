@@ -8,7 +8,7 @@ module.exports = new Schema({
     Veita: {type: String, default: ''},
     Tengidagur: {type: Date},
     Port_veitu: {type: String, default: ''},
-    Athugasemd: {type: String},
-    Athugasemnd: {type: String},
+    Athugasemd: {type: String, default: ''},
+    Athugasemnd: {type: String, default: ''},
     created_at: {type: Date, default: Date.now()}
 });
