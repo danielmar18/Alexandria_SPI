@@ -9,23 +9,27 @@ const estateService = () => {
         var collectionNameString = collectionName[0].toUpperCase()+collectionName.substr(1);
         var base = DB.model(collectionNameString, collectionNameSchema); 
         if(filterChecker(body.filter)){
+            console.log('No filter');
             base.find({}, function(err, result){
-                console.log(result);
                 if(err){
                     errorCallback({status: 500, message: err});
                 } else{
                     var retArr = [];
+                    var retArr2 = [];
+                    var i = 0;
                     result.forEach(obj => {
-                        retArr.push(estatePopulator(obj))
-                    })
+                        retArr.push(estatePopulator(obj));
+                    });
                     retObj = {
                         items: sorter(body.sort, retArr),
                         totalCount: retArr.length
                     }
+                    console.log(retObj);
                     callback({status: 200, package: retObj});
                 }
             });
         } else{
+            console.log('Filter on');
             var query = {};
             if(body.filter.value.length == 1){
                 const bodyObj = body.filter.value[0];
@@ -126,7 +130,8 @@ const sorter = (sortOrder, dataArray) => {
     return jsonItems;
 }
 const estatePopulator = (obj) => {
-    objArr = JSON.stringify(obj).split(',');
+    objArr = JSON.stringify(obj).split(/(?<="),(?=")/g);
+    //objArr = objSplitter(JSON.stringify(obj));
     fieldArr = [];
     valueArr = [];
     objArr.forEach( element => {
@@ -171,5 +176,46 @@ const typeFinder = line => {
         return 'text';
     }
 }
+
+// const objSplitter = obj => {
+//     // retArr = [];
+//     // var j = 0;
+//     // for(var i = 0; i < obj.length; i++){
+//     //     if((obj[i] == '{' && obj[i+1] == '"' ) || (obj[i] == ',' && obj[i+1] == '"' )){
+//     //         j = i;
+//     //     }
+//     //     if((obj[i] == '"' && obj[i+1] == ',') || (obj[i] == '"' && obj[i+1] == '}')){
+//     //         retArr.push(obj.substr(j, i).toString());
+//     //     }
+//     // }
+//     // console.log(retArr);
+//     // return retArr;
+//     retArr = obj.split(',');
+//     retArr2 = [];
+//     //console.log(retArr);
+//     for(var i = 0; i < retArr.length; i++){
+//         // console.log('\n');
+//         // console.log('String: '+retArr[i]);
+//         // console.log('First letter of string: '+ retArr[i][0]);
+//         // console.log('Length of array: '+retArr.length);
+//         // console.log('Item number: '+i);
+//         if(retArr[i][retArr.length -1] != '{' || retArr[i][retArr.length -1] != '"' ){
+//             if(i != retArr.length - 1){
+//                 var j = i+1;
+//                 if(retArr[j][0] != '"'){
+//                     retArr2.push((retArr[i]+retArr[j]).toString());
+//                 }
+//             } else{
+//                 retArr2.push(retArr[i]);
+//             }
+//         } else{
+//             retArr2.push(retArr[i]);
+//         }
+//         console.log('\n')
+//         console.log(retArr[retArr[i].length - 1]);
+//         console.log(retArr.length);
+//     }
+//     return retArr2;
+// }
 
 module.exports = estateService();
